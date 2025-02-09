@@ -24,12 +24,11 @@ const BookedCard: React.FC<YachtCardProps> = ({
     yacht // New prop for full yacht data
 }) => {
     const navigate = useNavigate();
-
+    console.log("yacht", yacht);
     const handleBookNow = () => {
         navigate(`/yatch-details/${yachtId}`, { 
             state: { 
-                isPrev,
-                yacht // Pass the full yacht data
+                booking: yacht 
             } 
         });
     };

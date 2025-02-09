@@ -9,30 +9,37 @@ import { superagentAPI } from "../../api/superagent";
 import { useAppSelector } from "../../redux/store/hook";
 import { IAgent } from "../../types/agent";
 
-interface Yacht {
+interface Booking {
     _id: string;
+    user: string;
     name: string;
+    yacht: string;
+    agent: string | null;
+    location: string;
+    duration: number;
+    startDate: string;
+    startTime: string;
+    endDate: string;
+    sailingTime: number;
+    stillTime: number;
     capacity: number;
-    price: {
-        sailing: number;
-        still: number;
-    };
+    PeopleNo: number;
+    specialEvent: string;
+    specialRequest: string;
+    totalAmount: number;
+    services: any[];
+    paymentStatus: string;
+    status: string;
+    rideStatus: string;
+    calendarSync: boolean;
+    razorpayOrderId: string;
+    createdAt: string;
+    updatedAt: string;
     images: string[];
-    location: string | {
-        type: string;
-        coordinates: number[];
-    };
-    description: string;
-    amenities: string[];
-    crews: Array<{
-        name: string;
-        role: string;
-        _id: string;
-    }>;
 }
 
 const Booking: React.FC = () => {
-    const [currentBookings, setCurrentBookings] = useState<Yacht[]>([]);
+    const [currentBookings, setCurrentBookings] = useState<Booking[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [bookingStatus, setBookingStatus] = useState('all');
@@ -92,7 +99,12 @@ const Booking: React.FC = () => {
                 }
 
                 const response = await superagentAPI.getBookings(filterParams);
-                setCurrentBookings(response || []);
+                // Check if response has allAgents property and it's an array
+                if (response && response.allAgents && Array.isArray(response.allAgents)) {
+                    setCurrentBookings(response.allAgents);
+                } else {
+                    setCurrentBookings([]);
+                }
             } catch (err: any) {
                 setError(err?.message || 'Failed to fetch bookings');
                 console.error("Error fetching bookings:", err);
@@ -170,10 +182,10 @@ const Booking: React.FC = () => {
                             {currentBookings.map((booking) => (
                                 <SwiperSlide key={booking._id}>
                                     <BookedCard
-                                        name={booking.name}
+                                        name={booking.name || "name"}
                                         capacity={booking.capacity}
-                                        startingPrice={booking.price.sailing.toString()}
-                                        imageUrl={booking.images[0] || Y1}
+                                        startingPrice={booking.totalAmount.toString()}
+                                        imageUrl={booking.images?.[0] || Y1}
                                         yachtId={booking._id}
                                         isPrev={false}
                                         yacht={booking}

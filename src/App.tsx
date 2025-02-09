@@ -52,6 +52,7 @@ import Earnigs from './components/Earning/Earning';
 import Account from './components/Account/Account';
 import AgentDetails from './components/Agent/AgentDetails';
 import AgentForm from './components/Agent/AgentFrom';
+import BookingDetail from './components/YachtDetails/YachtDetails';
 function App() {
   const location = useLocation();
 
@@ -68,7 +69,7 @@ function App() {
         <Route path="/bookings" element={<MainLayout><Booking/></MainLayout>} />
         <Route path="/agent/:id" element={<MainLayout><AgentDetails/></MainLayout>} />
         <Route path="/yatch-details/:id" element={<MainLayout><YachtDetails/></MainLayout>} />
-        <Route path="/booking-details" element={<MainLayout><BookingDetails/></MainLayout>} />
+        <Route path="/booking-details" element={<MainLayout><BookingDetail/></MainLayout>} />
         <Route path="/agent-form" element={<MainLayout><AgentForm/></MainLayout>} />
         <Route path="/yatch-review" element={<MainLayout><Review/></MainLayout>} />
         <Route path="/agents" element={<MainLayout><AgentsPage/></MainLayout>} />
