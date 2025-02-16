@@ -54,6 +54,10 @@ const Home: React.FC = () => {
   const { isAuthenticated } = useAppSelector((state) => state.user);
   const { yachts, loading } = useTopYachts();
 
+  if (loading) {
+    return <div>Loading...</div>;
+}
+
   const handleGetReferralLink = async () => {
     try {
         setIsLoading(true);
@@ -117,7 +121,7 @@ const Home: React.FC = () => {
                       <SwiperSlide key={yacht._id}>
                         <YachtCard
                           key={yacht._id}
-                          yacht={yacht}
+                          yacht={{ ...yacht, location: typeof yacht.location === 'string' ? yacht.location : '' }}
                         />
                       </SwiperSlide>
                     ))}

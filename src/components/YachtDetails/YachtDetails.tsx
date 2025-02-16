@@ -34,21 +34,37 @@ const BookingDetail: React.FC = () => {
             </div>
             <div className={styles.yacht_details_box}>
                 <div className={styles.details}>
-                    <div className={styles.prices}>
+                        <div className={styles.prices}>
                         <div className={styles.left}>
-                            <div className={styles.price_head}>Booking Details</div>
+                            <div className={styles.price_head}>Prices</div>
                             <div className={styles.price_box}>
-                                <div className={styles.pricess}>
-                                    <div className={styles.price_type}>Sailing Time</div>
-                                    <div className={styles.price_value}>{booking.sailingTime} hours</div>
-                                </div>
-                                <div className={styles.pricess2}>
-                                    <div className={styles.price_type}>Still Time</div>
-                                    <div className={styles.price_value}>{booking.stillTime} hours</div>
+                            <div className={styles.pricess}>
+                                <div className={styles.price_type}>Sailing (Peak):</div>
+                                <div className={styles.price_value}>
+                                ₹{booking.yacht.price?.sailing?.peakTime?.toLocaleString() || "N/A"} per hour
                                 </div>
                             </div>
+                            <div className={styles.pricess}>
+                                <div className={styles.price_type}>Sailing (Non-Peak):</div>
+                                <div className={styles.price_value}>
+                                ₹{booking.yacht.price?.sailing?.nonPeakTime?.toLocaleString() || "N/A"} per hour
+                                </div>
+                            </div>
+                            <div className={styles.pricess2}>
+                                <div className={styles.price_type}>Anchoring (Peak):</div>
+                                <div className={styles.price_value}>
+                                ₹{booking.yacht.price?.anchoring?.peakTime?.toLocaleString() || "N/A"} per hour
+                                </div>
+                            </div>
+                            <div className={styles.pricess2}>
+                                <div className={styles.price_type}>Anchoring (Non-Peak):</div>
+                                <div className={styles.price_value}>
+                                ₹{booking.yacht.price?.anchoring?.nonPeakTime?.toLocaleString() || "N/A"} per hour
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                    </div>
+                        </div>
                     <div className={styles.about}>
                         <h3>Booking Status</h3>
                         <p><b>Payment Status:</b> {booking.paymentStatus}</p>

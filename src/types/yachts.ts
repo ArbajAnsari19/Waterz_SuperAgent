@@ -1,13 +1,13 @@
-export interface YachtPrice {
-    sailing: number;
-    still: number;
-  }
+export interface Prices {
+  peakTime: number;
+  nonPeakTime: number;
+}
+
   
-  export interface Crew {
-    name: string;
-    role: string;
-    _id: string;
-  }
+export interface YachtPrice {
+  sailing: Prices;
+  anchoring: Prices;
+}
   
   export interface Yacht {
     _id: string;
@@ -21,7 +21,7 @@ export interface YachtPrice {
     amenities: string[];
     mnfyear: number;
     dimension: string;
-    crews: Crew[];
+    crews: number;
     images: string[];
     pickupat: string;
 }

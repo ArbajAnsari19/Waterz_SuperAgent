@@ -47,15 +47,15 @@ interface YachtCardProps {
     name: string;
     capacity: number;
     price: {
-      sailing: number;
-      still: number;
+      sailing: { peakTime: number; nonPeakTime: number; };
+      anchoring: { peakTime: number; nonPeakTime: number; };
     };
     images: string[];
     description: string;
-    location: string | { type: string; coordinates: number[] };
+    location: string;
     pickupat?: string;
     dimension: string;
-    crews: Array<{ name: string; role: string; _id: string }>;
+    crews: number;
     amenities: string[];
     availability: boolean;
     mnfyear: number;
@@ -66,7 +66,7 @@ const YachtCard: React.FC<YachtCardProps> = ({ yacht }) => {
   const navigate = useNavigate();
 
   const handleBookNow = () => {
-    navigate(`/yacht/${yacht?._id}`, { state: { yacht } });
+    navigate(`/yacht/${yacht._id}`, { state: { yacht } });
   };
 
   return (
@@ -82,7 +82,7 @@ const YachtCard: React.FC<YachtCardProps> = ({ yacht }) => {
           className={styles.image} 
         />
         <div className={styles.priceTag}>
-          Starting from ₹{yacht?.price.still.toLocaleString()}
+        Starting from ₹{yacht.price.anchoring.peakTime.toLocaleString()}
         </div>
       </div>
       <button className={styles.bookButton} onClick={handleBookNow}>

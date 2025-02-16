@@ -68,7 +68,7 @@ function App() {
         <Route path="/" element={<MainLayout><Home/></MainLayout>} />
         <Route path="/bookings" element={<MainLayout><Booking/></MainLayout>} />
         <Route path="/agent/:id" element={<MainLayout><AgentDetails/></MainLayout>} />
-        <Route path="/yatch-details/:id" element={<MainLayout><YachtDetails/></MainLayout>} />
+        <Route path="/yacht/:id" element={<MainLayout><YachtDetails/></MainLayout>} />
         <Route path="/booking-details" element={<MainLayout><BookingDetail/></MainLayout>} />
         <Route path="/agent-form" element={<MainLayout><AgentForm/></MainLayout>} />
         <Route path="/yatch-review" element={<MainLayout><Review/></MainLayout>} />
