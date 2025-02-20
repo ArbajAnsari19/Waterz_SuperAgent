@@ -7,7 +7,7 @@ import MainLayout from './components/Layouts/MainLayout';
 import Home from './components/Home/Home';
 import Booking from './components/Booking/Booking';
 import YachtDetails from './components/YachtDetails/YachtDetails';
-import BookingDetails from './components/Booking/BookingDetails';
+// import BookingDetails from './components/Booking/BookingDetails';
 import Review from './components/YachtDetails/YatchReview';
 import SignUp from './components/LoginSignup/SignUp';
 import Login from './components/LoginSignup/Login';
