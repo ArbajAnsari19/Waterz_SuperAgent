@@ -7,6 +7,7 @@
     padding: 16px;
     width: 280px;
     background-color: #fff;
+    border: 1px solid rgba(57, 56, 56, 0.224);
   }
   
   .header {
@@ -31,29 +32,22 @@
   }
   
   .imageContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 16px;
-    height: 200px;
-    background: #fff;
-    box-shadow: -1px 1px 18px 6px rgb(0 0 0 / 10%);
   }
   
   .image {
     width: 100%;
     height: auto;
     object-fit: cover;
-    /* border-radius: 8px; */
   }
   
   .priceTag {
     position: absolute;
-    top: 0;
+    top: 1rem;
     right: 0;
     background-color: #1766FFBA;
     color: #fff;
@@ -63,7 +57,12 @@
     display: inline-block;
   }
   
-  
+  .yatchName{
+    font-size: 24px;
+    font-weight: 400;
+    color: #2B6BE7;
+    margin-bottom: 1.2rem;
+  }
   
   .bookButton {
     background-color: #1766FF;
@@ -80,10 +79,4 @@
   .bookButton:hover {
     background-color: #1e4fb0;
   }
-
-  @media (max-width: 400px){
-    .card{
-        width: 240px;
-    }
- }
   

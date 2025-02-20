@@ -54,4 +54,17 @@ export const superagentAPI = {
     });
     return response.data;
   },
+
+  getEarnings: async ( agentWise: string ) : Promise<any> => {
+    const token = localStorage.getItem("token");
+    
+    const response = await apiClient.post(paths.superagentEarnings, {
+      agentWise
+    }, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+  },
 };

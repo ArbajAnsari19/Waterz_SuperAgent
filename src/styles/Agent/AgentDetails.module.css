@@ -193,6 +193,11 @@
         line-height: 32px;
     }
 
+    .image_box{
+        height: 150px;
+        width: 150px;
+    }
+
     .info_row {
         grid-template-columns: 1fr;
         gap: 0.5rem;

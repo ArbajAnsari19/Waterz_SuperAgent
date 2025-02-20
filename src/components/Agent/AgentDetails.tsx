@@ -104,7 +104,7 @@ const AgentDetails: React.FC = () => {
             <div className={styles.profile_container}>
                 <div className={styles.image_box}>
                     <img 
-                        src={agentData.imgUrl || agent} 
+                        src={agentData.imgUrl[0] || agent} 
                         alt={agentData.name} 
                         className={styles.profile_image} 
                     />

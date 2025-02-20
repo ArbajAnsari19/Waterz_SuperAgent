@@ -17,11 +17,22 @@ interface SignupData {
 }
 
 interface OTPData {
-  otp: number;
+  otp: string;
 }
 
 interface EmailData {
   otp: string;
+}
+
+interface AgentProfileData {
+  age: number;
+  address: string;
+  experience: number;
+  accountHolderName: string;
+  accountNumber: string;
+  bankName: string;
+  ifscCode: string;
+  imgUrl?: string[];
 }
 
 export const authAPI = {
@@ -50,8 +61,22 @@ export const authAPI = {
     return response.data;
   },
 
+  registerAgent: async (profileData: AgentProfileData) => {
+    console.log('profileData', profileData);
+    const response = await apiClient.post(paths.updateProfile, profileData);
+    console.log('response', response);
+    return response.data;
+  },
+
   getUserProfile: async (): Promise<UserDetails> => {
-    const response = await apiClient.get(paths.getUserProfile);
+    const token = localStorage.getItem('token');
+    const response = await apiClient.get(paths.superagenProfile,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
     return response.data;
   },
 

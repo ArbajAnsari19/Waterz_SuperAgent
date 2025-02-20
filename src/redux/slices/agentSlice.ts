@@ -19,7 +19,7 @@ const agentSlice = createSlice({
     },
     removeAgent: (state, action: PayloadAction<string>) => {
       state.allAgents = state.allAgents.filter(
-        agent => agent.id !== action.payload
+        agent => agent._id !== action.payload
       );
     },
     setLoading: (state, action: PayloadAction<boolean>) => {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/Booking/Booking.module.css";
-import Y1 from "../../assets/Yatch/Y1.svg";
 import Y2 from "../../assets/Yatch/Y2.svg";
 import BookedCard from "../Layouts/BookedCard";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,7 +7,9 @@ import 'swiper/swiper-bundle.css';
 import { superagentAPI } from "../../api/superagent";
 import { useAppSelector } from "../../redux/store/hook";
 import { IAgent } from "../../types/agent";
-
+import { useAppDispatch } from "../../redux/store/hook";
+import { setLoading } from "../../redux/slices/loadingSlice";
+import { toast } from "react-toastify";
 interface Booking {
     _id: string;
     user: string;
@@ -38,9 +39,14 @@ interface Booking {
     images: string[];
 }
 
+interface Agent {
+    _id: string;
+    name: string;
+}
+
 const Booking: React.FC = () => {
+    const dispatch = useAppDispatch();
     const [currentBookings, setCurrentBookings] = useState<Booking[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [bookingStatus, setBookingStatus] = useState('all');
     const [selectedAgent, setSelectedAgent] = useState('all');
@@ -62,11 +68,14 @@ const Booking: React.FC = () => {
         } else {
             const fetchAgents = async () => {
                 try {
+                    dispatch(setLoading(true));
                     const response = await superagentAPI.getAllAgents();
                     if (response.allAgents) {
                         setAgents(response.allAgents);
                     }
+                    dispatch(setLoading(false));
                 } catch (err) {
+                    dispatch(setLoading(false));
                     console.error("Error fetching agents:", err);
                 }
             };
@@ -78,7 +87,7 @@ const Booking: React.FC = () => {
     const agentOptions = [
         { value: 'all', label: 'All Agents' },
         ...agents.map(agent => ({
-            value: agent.id,
+            value: agent._id,
             label: agent.name
         }))
     ];
@@ -86,7 +95,7 @@ const Booking: React.FC = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                setIsLoading(true);
+                dispatch(setLoading(true));
                 setError(null);
 
                 // Create filter object for body params
@@ -106,15 +115,20 @@ const Booking: React.FC = () => {
                     setCurrentBookings([]);
                 }
             } catch (err: any) {
+                dispatch(setLoading(false));
                 setError(err?.message || 'Failed to fetch bookings');
                 console.error("Error fetching bookings:", err);
             } finally {
-                setIsLoading(false);
+                dispatch(setLoading(false));
             }
         };
 
         fetchBookings();
     }, [bookingStatus, selectedAgent]);
+
+    // if (error) {
+    // toast.error("Something Wrong Happened")
+    //   }
 
     const NoBookingsMessage = ({ type }: { type: string }) => (
         <div className={styles.noBookings}>
@@ -168,27 +182,45 @@ const Booking: React.FC = () => {
                 </div>
 
                 <div className={styles.yatch_slider}>
-                    {isLoading ? (
-                        <div className={styles.loading}>Loading...</div>
-                    ) : currentBookings.length === 0 ? (
+                    {currentBookings.length === 0 ? (
                         <NoBookingsMessage type="current" />
                     ) : (
                         <Swiper
-                            spaceBetween={10}
-                            slidesPerView={3.2}
-                            pagination={{ clickable: true }}
-                            style={{ padding: "20px 0", width: "100%" }}
-                        >
+                        spaceBetween={50}
+                        slidesPerView="auto"
+                        pagination={{ clickable: true }}
+                        style={{ 
+                          padding: "20px 0", 
+                          width: "100%",
+                        }}
+                        breakpoints={{
+                          320: {
+                            slidesPerView: "auto",
+                            spaceBetween: 10
+                          },
+                          480: {
+                            slidesPerView: "auto",
+                            spaceBetween: 15
+                          },
+                          768: {
+                            slidesPerView: "auto",
+                            spaceBetween: 20
+                          },
+                          1024: {
+                            slidesPerView: "auto",
+                            spaceBetween: 40
+                          }
+                        }}
+                      >
                             {currentBookings.map((booking) => (
-                                <SwiperSlide key={booking._id}>
+                                <SwiperSlide key={booking._id} className={styles.swiper_slide}>
                                     <BookedCard
-                                        name={booking.name || "name"}
+                                        name={booking.name}
                                         capacity={booking.capacity}
-                                        startingPrice={booking.totalAmount.toString()}
-                                        imageUrl={booking.images?.[0] || Y1}
-                                        yachtId={booking._id}
-                                        isPrev={false}
-                                        yacht={booking}
+                                        startDate={booking.startDate}
+                                        images={booking.images[0]}
+                                        bookingId={booking._id}
+                                        booking={booking}
                                     />
                                 </SwiperSlide>
                             ))}

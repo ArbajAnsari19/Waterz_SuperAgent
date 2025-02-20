@@ -1,4 +1,5 @@
-const URL = "http://localhost:8000";
+const  URL= 'https://waterz-backend.onrender.com';
+  // const  URL=: 'http://localhost:8000'; // local server
 const userBaseURL = URL + "/user";
 const customer = URL + "/customer";
 const owner = URL + "/owner";
@@ -17,7 +18,7 @@ export const paths = {
   googleAuth: `${userBaseURL}/google`,
   
   // User endpoints
-  getUserProfile: `${userBaseURL}/profile`,
+  getUserProfile: `${superagent}/profile`,
   updateUserProfile: `${userBaseURL}/profile/update`,
   
   // yacht
@@ -48,7 +49,11 @@ export const paths = {
   getAllAgents:`${superagent}/list-all-agent`,
   getAgent:`${superagent}/get-agent`,
   removeAgent:`${superagent}/remove-agent`,
-  getBookings:`${superagent}/list-filtered-agent`
+  getBookings:`${superagent}/list-filtered-agent`,
+  updateProfile: `${superagent}/updateProfile`,
+  superagentEarnings: `${superagent}/list-filtered-earnings`,
+  superagenProfile: `${superagent}/me`,
+
 };
 
 export default paths;

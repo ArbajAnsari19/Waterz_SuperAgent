@@ -1,59 +1,76 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/Earning/Earning.module.css";
 import 'swiper/swiper-bundle.css';
-import { ownerBookingAPI } from "../../api/booking";
 import earnings from "../../assets/Yatch/sa-earnings.webp";
+import { superagentAPI } from "../../api/superagent";
+import { useAppSelector } from "../../redux/store/hook";
+import { useAppDispatch } from "../../redux/store/hook";
+import { setLoading } from "../../redux/slices/loadingSlice";
+import { IAgent } from "../../types/agent";
 
 const Earnings: React.FC = () => {
+    const dispatch = useAppDispatch();
     const [earningsData, setEarningsData] = useState<any>(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [bookingStatus, setBookingStatus] = useState('all');
     const [selectedAgent, setSelectedAgent] = useState('all');
+    const [agents, setAgents] = useState<IAgent[]>([]);
+    const { allAgents } = useAppSelector((state) => state.agent);
 
-    const bookingStatusOptions = [
-        { value: 'all', label: 'All' },
-        { value: 'current', label: 'Current' },
-        { value: 'ongoing', label: 'Ongoing' }
-    ];
 
-    const agentOptions = [
-        { value: 'all', label: 'All Agents' },
-        { value: 'agent1', label: 'Agent 1' },
-        { value: 'agent2', label: 'Agent 2' },
-        { value: 'agent3', label: 'Agent 3' }
-    ];
+    // Use agents from Redux or fetch if not available
+    useEffect(() => {
+        if (allAgents.length > 0) {
+            setAgents(allAgents);
+        } else {
+            const fetchAgents = async () => {
+                try {
+                    dispatch(setLoading(true));
+                    const response = await superagentAPI.getAllAgents();
+                    if (response.allAgents) {
+                        setAgents(response.allAgents);
+                    }
+                    dispatch(setLoading(false));
+                } catch (err) {
+                    dispatch(setLoading(false));
+                    console.error("Error fetching agents:", err);
+                }
+            };
+            fetchAgents();
+        }
+    }, [allAgents]);
+
+        // Generate agent options dynamically
+        const agentOptions = [
+            { value: '', label: 'All Agents' },
+            ...agents.map(agent => ({
+                value: agent._id,
+                label: agent.name
+            }))
+        ];
+    
 
     useEffect(() => {
         const fetchEarnings = async () => {
             try {
-                setIsLoading(true);
-                // Construct query parameters
-                const queryParams = new URLSearchParams();
-                if (bookingStatus !== 'all') queryParams.append('status', bookingStatus);
-                if (selectedAgent !== 'all') queryParams.append('agent', selectedAgent);
-                // @ts-ignore
-                const earnings = await ownerBookingAPI.getEarnings(queryParams.toString());
-                setEarningsData(earnings);
+                dispatch(setLoading(true));
+                const earnings = await superagentAPI.getEarnings(selectedAgent);
+                console.log("earnig", earnings.allAgents)
+                setEarningsData(earnings.allAgents);
             } catch (err: any) {
                 setError(err?.message || 'Failed to fetch earnings');
                 console.error("Error fetching earnings:", err);
             } finally {
-                setIsLoading(false);
+                dispatch(setLoading(false));
             }
         }
         fetchEarnings();
-    }, [bookingStatus, selectedAgent]);
+    }, [ selectedAgent]);
 
     const NoEarningsMessage = ({ type }: { type: string }) => (
         <div className={styles.noBookings}>
-            <p>No {type} earnings available</p>
+            <p>No Earnings</p>
         </div>
     );
-
-    const handleBookingStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setBookingStatus(event.target.value);
-    };
 
     const handleAgentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedAgent(event.target.value);
@@ -97,12 +114,8 @@ const Earnings: React.FC = () => {
                 <div className={styles.earnigs_box}>
                     <div className={styles.text}>Total:</div>
                     <div className={styles.earning}>
-                        {isLoading ? (
-                            'Loading...'
-                        ) : error ? (
-                            'Error loading earnings'
-                        ) : earningsData ? (
-                            earningsData.total || '0'
+                        { earningsData ? (
+                            earningsData || '0'
                         ) : (
                             <NoEarningsMessage type="earnings" />
                         )}

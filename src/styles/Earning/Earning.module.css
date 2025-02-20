@@ -13,10 +13,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 0;
     color: #666;
-    font-size: 1.1rem;
-    background: #f5f5f5;
+    font-size: 1.5rem;
     border-radius: 8px;
     margin: 1rem 0;
 }
@@ -63,8 +62,8 @@
     align-items: center;
     justify-content: start;
     gap: 10px;
-    width: 50%;
-    min-width: 300px;
+    width: 100%;
+    min-width: 250px;
     background: #E6E6E6;
 }
 .text{

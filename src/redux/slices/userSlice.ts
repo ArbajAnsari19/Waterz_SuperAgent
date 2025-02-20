@@ -4,7 +4,7 @@ import { UserState, UserDetails } from '../../types/user';
 const initialState: UserState = {
   userDetails: {},
   isAuthenticated: false,
-  referralLink: null,
+  referralLink: '',
 };
 
 const userSlice = createSlice({
@@ -18,7 +18,7 @@ const userSlice = createSlice({
     clearUserDetails: (state) => {
       state.userDetails = {};
       state.isAuthenticated = false;
-      state.referralLink = null;
+      state.referralLink = '';
     },
     setReferralLink: (state, action: PayloadAction<string>) => {
       state.referralLink = action.payload;

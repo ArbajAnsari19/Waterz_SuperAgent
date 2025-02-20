@@ -21,7 +21,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
       </div>
       <div className={styles.imageContainer}>
         <img 
-          src={agent.imgUrl} 
+          src={agent.imgUrl[0]} 
           alt={`Agent ${agent.name}`} 
           className={styles.image}
         />

@@ -11,6 +11,9 @@ import { useAppDispatch, useAppSelector } from "../../redux/store/hook";
 import { superagentAPI } from "../../api/superagent";
 import { useNavigate } from "react-router-dom";
 import { setReferralLink } from "../../redux/slices/userSlice";
+import { toast } from "react-toastify";
+
+
 const solutionData = [
   {
     id: "solution-1",
@@ -52,7 +55,12 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.user);
-  const { yachts, loading } = useTopYachts();
+  const { yachts,  error } = useTopYachts();
+  const {userDetails}  = useAppSelector((state) => state.user)
+  console.log("isVer", userDetails.isVerifiedByAdmin)
+  if (error) {
+    toast.error("Something Wrong Happened")
+  }
 
   const handleGetReferralLink = async () => {
     try {
@@ -79,7 +87,7 @@ const Home: React.FC = () => {
               <div className={styles.hero_subhead}>
                   Manage multiple agents under your network, assign yachts, and customize commission structures with ease. Streamline your operations and maximize efficiency effortlessly.
               </div>
-              {isAuthenticated ? (
+              {isAuthenticated && userDetails.isVerifiedByAdmin ? (
                   <div className={styles.account_section}>
                       <button 
                           className={styles.hero_btn}
@@ -107,17 +115,39 @@ const Home: React.FC = () => {
                  Yacht Near You
               </div>
               <div className={styles.yatch_slider}>
-                  <Swiper
-                    spaceBetween={10}
-                    slidesPerView={3.2}
-                    pagination={{ clickable: true }}
-                    style={{ padding: "20px 0", width:"100%" }}
-                  >
+                    <Swiper
+                      spaceBetween={50}
+                      slidesPerView="auto"
+                      pagination={{ clickable: true }}
+                      style={{ 
+                        padding: "20px 0", 
+                        width: "100%",
+                      }}
+                      breakpoints={{
+                        320: {
+                          slidesPerView: "auto",
+                          spaceBetween: 10
+                        },
+                        480: {
+                          slidesPerView: "auto",
+                          spaceBetween: 15
+                        },
+                        768: {
+                          slidesPerView: "auto",
+                          spaceBetween: 20
+                        },
+                        1024: {
+                          slidesPerView: "auto",
+                          spaceBetween: 40
+                        }
+                      }}
+                    >
                     {yachts.map((yacht) => (
-                      <SwiperSlide key={yacht._id}>
+                      <SwiperSlide key={yacht._id}  className={styles.swiper_slide}>
                         <YachtCard
                           key={yacht._id}
                           yacht={yacht}
+                          showLoc={false}
                         />
                       </SwiperSlide>
                     ))}

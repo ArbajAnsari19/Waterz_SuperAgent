@@ -13,7 +13,7 @@ export interface AgentState {
 
 
 export interface IAgent {
-    id: string;
+    _id: string;
     username: string;
     name: string;
     age: number;

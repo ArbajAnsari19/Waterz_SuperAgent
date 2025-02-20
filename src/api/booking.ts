@@ -60,7 +60,7 @@ export const ownerBookingAPI = {
         }
       },
       getEarnings:async (): Promise<EarningsAnalytics> => {
-        const response = await apiClient.get(paths.ownerEarnings);;
+        const response = await apiClient.get(paths.superagentEarnings);;
         return response.data;
       }
 };

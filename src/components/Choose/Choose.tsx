@@ -14,6 +14,7 @@ const AgentsPage: React.FC = () => {
   const { allAgents, loading, error } = useAppSelector((state) => state.agent);
   const { isAuthenticated } = useAppSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
+  const {userDetails}  = useAppSelector((state) => state.user)
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -98,10 +99,10 @@ const AgentsPage: React.FC = () => {
         <div className={styles.section_head}>
           Create Profile, Set Commissions
         </div>
-        {isAuthenticated ? (
+        {isAuthenticated && userDetails.isVerifiedByAdmin ? (
                   <div className={styles.account_section}>
                       <button 
-                          className={styles.hero_btn}
+                          className={styles.hero_btn2}
                           onClick={handleGetReferralLink}
                           disabled={isLoading}
                       >
@@ -128,7 +129,7 @@ const AgentsPage: React.FC = () => {
         {allAgents && allAgents.length > 0 ? (
           allAgents.map((agent) => (
             <AgentCard
-              key={agent.id}
+              key={agent._id}
               agent={agent}
             />
           ))
