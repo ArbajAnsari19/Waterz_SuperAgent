@@ -62,6 +62,10 @@ const Home: React.FC = () => {
     toast.error("Something Wrong Happened")
   }
 
+//   if (loading) {
+//     return <div>Loading...</div>;
+// }
+
   const handleGetReferralLink = async () => {
     try {
         setIsLoading(true);
