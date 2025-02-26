@@ -43,15 +43,15 @@ const AgentDetails: React.FC = () => {
         fetchAgentDetails();
     }, [id, location.state]);
 
-    const handleEditAgent = () => {
-        if (!agentData) return;
-        navigate('/agent-form', {
-            state: {
-                isEdit: true,
-                agent: agentData
-            }
-        });
-    };
+    // const handleEditAgent = () => {
+    //     if (!agentData) return;
+    //     navigate('/agent-form', {
+    //         state: {
+    //             isEdit: true,
+    //             agent: agentData
+    //         }
+    //     });
+    // };
 
     const handleDeleteAgent = async () => {
         if (!agentData || !window.confirm("Are you sure you want to remove this agent? This action cannot be undone.")) {
@@ -61,7 +61,7 @@ const AgentDetails: React.FC = () => {
         try {
             setLoading(true);
             // Replace with your actual API call
-            await superagentAPI.removeAgentById(agentData.id);
+            await superagentAPI.removeAgentById(agentData._id);
             navigate("/agents");
         } catch (err) {
             console.error("Error deleting agent:", err);

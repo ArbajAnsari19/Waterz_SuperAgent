@@ -6,38 +6,38 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 // Type definitions
-interface YachtDetails {
-    id: string;
-    name: string;
-    description: string;
-    price: {
-        sailing: number;
-        still: number;
-    };
-    images: string[];
-    capacity: number;
-}
+// interface YachtDetails {
+//     id: string;
+//     name: string;
+//     description: string;
+//     price: {
+//         sailing: number;
+//         still: number;
+//     };
+//     images: string[];
+//     capacity: number;
+// }
 
-interface BookingResponse {
-    user: string;
-    yacht: string;
-    location: string;
-    duration: number;
-    startDate: string;
-    startTime: string;
-    endDate: string;
-    sailingTime: number;
-    stillTime: number;
-    capacity: number;
-    PeopleNo: number;
-    specialEvent: string;
-    specialRequest: string;
-    totalAmount: number;
-    paymentStatus: string;
-    status: string;
-    _id: string;
-    razorpayOrderId: string;
-}
+// interface BookingResponse {
+//     user: string;
+//     yacht: string;
+//     location: string;
+//     duration: number;
+//     startDate: string;
+//     startTime: string;
+//     endDate: string;
+//     sailingTime: number;
+//     stillTime: number;
+//     capacity: number;
+//     PeopleNo: number;
+//     specialEvent: string;
+//     specialRequest: string;
+//     totalAmount: number;
+//     paymentStatus: string;
+//     status: string;
+//     _id: string;
+//     razorpayOrderId: string;
+// }
 
 declare global {
     interface Window {

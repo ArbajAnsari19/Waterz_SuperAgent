@@ -28,6 +28,8 @@ export const paths = {
   // query
   userQuery: `${URL}/query`,
 
+  // agent
+  agentDetails: `${superagent}/agent-details`,
   // filter
   locationFilter: `${booking}/idealYatchs`,
   bookYacht: `${booking}/create`,

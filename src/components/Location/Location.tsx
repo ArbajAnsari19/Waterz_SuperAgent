@@ -154,7 +154,12 @@ const Location: React.FC = () => {
 
     try {
       setIsLoading(true);
-      const response = await yachtAPI.getIdealYatchs(formData);
+      const formattedFormData = {
+        ...formData,
+        startDate: formData.startDate ? formData.startDate.toISOString() : '',
+        startTime: formData.startTime ? formData.startTime.toISOString() : ''
+      };
+      const response = await yachtAPI.getIdealYatchs(formattedFormData);
       
       if (response) {
         // Navigate to choose page with yachts data

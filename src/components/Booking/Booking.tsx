@@ -9,7 +9,6 @@ import { useAppSelector } from "../../redux/store/hook";
 import { IAgent } from "../../types/agent";
 import { useAppDispatch } from "../../redux/store/hook";
 import { setLoading } from "../../redux/slices/loadingSlice";
-import { toast } from "react-toastify";
 interface Booking {
     _id: string;
     user: string;
@@ -39,10 +38,6 @@ interface Booking {
     images: string[];
 }
 
-interface Agent {
-    _id: string;
-    name: string;
-}
 
 const Booking: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -54,7 +49,7 @@ const Booking: React.FC = () => {
 
     // Get agents from redux store
     const { allAgents } = useAppSelector((state) => state.agent);
-
+ console.log("error",error);
     const bookingStatusOptions = [
         { value: 'all', label: 'All' },
         { value: 'pending', label: 'Upcoming' },

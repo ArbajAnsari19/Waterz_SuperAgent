@@ -11,7 +11,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
   const navigate = useNavigate();
 
   const handleViewProfile = () => {
-    navigate(`/agent/${agent.id}`, { state: { agent } });
+    navigate(`/agent/${agent._id}`, { state: { agent } });
   };
 
   return (
