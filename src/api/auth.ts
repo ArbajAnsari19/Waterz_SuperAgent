@@ -2,6 +2,8 @@ import { apiClient, nonAuthApiClient } from './apiClient';
 import paths from './paths';
 import { UserDetails } from '../types/user';
 
+const GOOGLE_REDIRECT_URI = 'https://www.wavezgoa.com/auth/google/callback';
+
 interface LoginCredentials {
   email: string;
   password: string;
@@ -33,6 +35,11 @@ interface AgentProfileData {
   bankName: string;
   ifscCode: string;
   imgUrl?: string[];
+}
+
+interface GoogleProfileData {
+  phone: string;
+  role: string;
 }
 
 export const authAPI = {
@@ -82,6 +89,20 @@ export const authAPI = {
 
   updateUserProfile: async (userData: Partial<UserDetails>) => {
     const response = await apiClient.put(paths.updateUserProfile, userData);
+    return response.data;
+  },
+
+  initiateGoogleAuth: () => {
+    window.location.href = `${paths.googleAuth}?redirect_uri=${encodeURIComponent(GOOGLE_REDIRECT_URI)}`;
+  },
+  // Google authentication
+  completeGoogleProfile: async (data: GoogleProfileData) => {
+    const response = await apiClient.post('/auth/complete-profile', data);
+    return response.data;
+  },
+  
+  checkGoogleAuth: async (email: string) => {
+    const response = await nonAuthApiClient.post('/auth/check-google-auth', { email });
     return response.data;
   },
 };
