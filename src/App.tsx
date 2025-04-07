@@ -20,6 +20,9 @@ import BookingDetail from './components/YachtDetails/YachtDetails';
 import { useAppSelector, useAppDispatch } from './redux/store/hook';
 import { setUserDetails } from './redux/slices/userSlice';
 import { authAPI } from './api/auth';
+import GoogleCallback from './components/LoginSignup/GoogleCallback';
+import CompleteProfile from './components/LoginSignup/CompleteProfile';
+
 function App() {
   const location = useLocation();
   const dispatch = useAppDispatch();
@@ -72,11 +75,14 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/auth-callback" element={<GoogleCallback />} />
+        <Route path="/complete-profile" element={<CompleteProfile />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<MainLayout><Home/></MainLayout>} />
         <Route path="/bookings" element={<MainLayout><Booking/></MainLayout>} />
-        <Route path="/booking/:id" element={<MainLayout><BookingData /></MainLayout>} /><Route path="/agent/:id" element={<MainLayout><AgentDetails/></MainLayout>} />
+        <Route path="/booking/:id" element={<MainLayout><BookingData /></MainLayout>} />
+        <Route path="/agent/:id" element={<MainLayout><AgentDetails/></MainLayout>} />
         <Route path="/yatch-details/:id" element={<MainLayout><YachtDetails/></MainLayout>} />
         <Route path="/booking-details" element={<MainLayout><BookingDetail/></MainLayout>} />
         {/* <Route path="/agent-form" element={<MainLayout><AgentForm/></MainLayout>} /> */}
