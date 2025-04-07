@@ -1,7 +1,6 @@
 const  URL= 'https://www.backend.wavezgoa.com';
   // const  URL= 'http://localhost:8000'; // local server
 const userBaseURL = URL + "/user";
-const customer = URL + "/customer";
 const owner = URL + "/owner";
 const signUp = URL + "/auth";
 const booking = URL + "/booking";
@@ -22,8 +21,8 @@ export const paths = {
   updateUserProfile: `${userBaseURL}/profile/update`,
   
   // yacht
-  getYachtList: `${customer}/listAll`,
-  getTopYachts: `${customer}/topYatch`,
+  getYachtList: `${superagent}/listAll`,
+  getTopYachts: `${superagent}/topYatch`,
 
   // query
   userQuery: `${URL}/query`,
