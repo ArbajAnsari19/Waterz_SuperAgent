@@ -5,6 +5,17 @@ import { CreateYachtRequest } from "../types/createYacht";
 import {Ride} from "../types/owner"
 
 export const ownerAPI = {
+  
+  getAgentDetails: async (agentId:string): Promise<any> => {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.get(`${paths.agentDetails}/${agentId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  },
+
   getOwnerProfile: async (): Promise<any> => {
     const token = localStorage.getItem("token");
     const response = await apiClient.get(paths.ownerProfile, {

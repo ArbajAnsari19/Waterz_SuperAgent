@@ -30,7 +30,7 @@ const AgentForm: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitSuccess,] = useState(false);
 
   const [formData, setFormData] = useState<AgentFormData>({
     name: '',
@@ -49,13 +49,12 @@ const AgentForm: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof AgentFormData, string>>>({});
-
   useEffect(() => {
     const fetchAgentDetails = async () => {
       if (isEditMode && agentUsername) {
         setIsLoading(true);
         try {
-          const agentDetails = await ownerAPI.getAgentDetail(agentUsername);
+          const agentDetails = await ownerAPI.getAgentDetails(agentUsername);
           setFormData({
             name: agentDetails.name || '',
             dateOfBirth: agentDetails.dateOfBirth || '',

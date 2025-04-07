@@ -38,6 +38,7 @@ const Earnings: React.FC = () => {
             fetchAgents();
         }
     }, [allAgents]);
+    console.log("error", error);
 
         // Generate agent options dynamically
         const agentOptions = [
@@ -66,7 +67,7 @@ const Earnings: React.FC = () => {
         fetchEarnings();
     }, [ selectedAgent]);
 
-    const NoEarningsMessage = ({ type }: { type: string }) => (
+    const NoEarningsMessage = ({  }: { type: string }) => (
         <div className={styles.noBookings}>
             <p>No Earnings</p>
         </div>

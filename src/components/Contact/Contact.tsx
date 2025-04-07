@@ -17,6 +17,7 @@ export const ContactForm: React.FC = () => {
     e.preventDefault();
     setError('');
 
+    console.log("error", error);
     if (!formData.email || !formData.name || !formData.message) {
       setError('Please fill in all required fields');
       return;

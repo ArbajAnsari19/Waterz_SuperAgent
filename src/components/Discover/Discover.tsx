@@ -9,11 +9,7 @@ import 'swiper/swiper-bundle.css';
 import { Link } from "react-router-dom";
 
 const Discover: React.FC = () => {
-    const { yachts, loading } = useTopYachts();
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    const { yachts } = useTopYachts();
 
     return(
         <div className={styles.comp_body}>
@@ -55,6 +51,7 @@ const Discover: React.FC = () => {
                       <YachtCard
                         key={yacht._id}
                         yacht={yacht}
+                        showLoc={false}
                       />
                     </SwiperSlide>
                   ))}

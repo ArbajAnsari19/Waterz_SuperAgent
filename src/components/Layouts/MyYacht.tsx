@@ -11,7 +11,7 @@ interface YachtCardProps {
   
 }
 
-const MyYacht: React.FC<YachtCardProps> = ({ name, capacity, startingPrice, imageUrl, yachtId }) => {
+const MyYacht: React.FC<YachtCardProps> = ({ name, imageUrl, yachtId }) => {
   const navigate = useNavigate();
   console.log("yachtId", yachtId);
   const handleBookNow = () => {
